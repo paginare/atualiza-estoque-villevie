@@ -1,0 +1,74 @@
+Opções de pesquisa:
+
+    * Para lojas: (Rota: sellbie/lojas)
+        Não tem filtro.
+
+    * Para vendedores: (Rota: sellbie/vendedores)
+
+        - date_start (Filtrando a 'dataInclusao' inicio)
+        - date_end (Filtrando a 'dataInclusao' fim)
+        - seller (Filtrando o 'funcionario')
+
+        * Quando não informado, traz todos.
+        * Informando apenas uma data ou outra, a consulta irá filtrar apenas aquele dia.
+        
+    * Para cores: (Rota: sellbie/cores)
+        Não tem filtro.
+
+    * Para tamanhos: (Rota: sellbie/tamanhos)
+        Não tem filtro.
+
+    * Para produtos: (Rota: sellbie/produtos)
+
+        - date_start (Filtrando a 'dataInclusao' inicio)
+        - date_end (Filtrando a 'dataInclusao' fim)
+
+        * Quando não informado, traz todos os cadastrados no último mês.
+        * Informando apenas uma data ou outra, a consulta irá filtrar apenas aquele dia.
+
+    * Para clientes: (Rota: sellbie/clientes)
+
+        - date_start (Filtrando a 'dataInclusao' inicio)
+        - date_end (Filtrando a 'dataInclusao' fim)
+        - cod_client (Filtrando a 'cpfCnpj' do cliente)
+
+        * Quando não informado, traz todos.
+        * Informando apenas uma data ou outra, a consulta irá filtrar apenas aquele dia.
+
+    * Para vendas: (Rota: sellbie/vendas)
+
+        - date_start (Filtrando a 'dataVenda' inicio)
+        - date_end (Filtrando a 'dataVenda' fim)
+
+        * Quando não informado, traz todas as vendas no último mês.
+        * Informando apenas uma data ou outra, a consulta irá filtrar apenas aquele dia.
+
+    * Para detalhes de vendas: (Rota: sellbie/detalhesVendas)
+        
+        - date_start (Filtrando a 'dataVenda' inicio)
+        - date_end (Filtrando a 'dataVenda' fim)
+
+        * Quando não informado, traz todas as vendas no último mês.
+        * Informando apenas uma data ou outra, a consulta irá filtrar apenas aquele dia.
+
+    * Para pagamentos de vendas (Rota: sellbie/pagamentosVendas)
+        
+        - date_start (Filtrando a 'dataVenda' inicio)
+        - date_end (Filtrando a 'dataVenda' fim)
+
+        * Quando não informado, traz todos os pagamentos de vendas do último mês.
+        * Informando apenas uma data ou outra, a consulta irá filtrar apenas aquele dia.
+
+    * Para estoque (Rota: sellbie/estoque)
+        
+	- cod_loja (Filtrando o 'idFilial') - *obrigatório
+        - cod_prod (Filtrando o 'prodCodigo')
+        - only_disp (Filtrando o que tem disponível em estoque) 
+          	valores 0 retorna todos os produtos com ou sem estoque
+                 	1 retorna os produtos com quantidade em estoque
+
+        
+
+	*os campos date_start  e date_end tem o formato aaaa-mm-dd
+
+	*Horário permitido para uso: 06:00 até 07:00

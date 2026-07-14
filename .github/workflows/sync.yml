@@ -1,0 +1,40 @@
+name: Sync estoque Sellbie -> Yampi
+
+on:
+  schedule:
+    # De hora em hora, no minuto 0 (UTC). O cron do GitHub pode atrasar 5-15min em pico.
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+# Se uma execucao atrasar e encavalar na proxima, a seguinte espera em vez de
+# rodar em paralelo (duas sincronizacoes simultaneas competiriam na Yampi).
+concurrency:
+  group: sync-estoque
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Sincronizar
+        run: node src/sync-once.js
+        env:
+          SELLBIE_BASE_URL: ${{ secrets.SELLBIE_BASE_URL }}
+          SELLBIE_COD_LOJA: ${{ secrets.SELLBIE_COD_LOJA }}
+          x_api_key: ${{ secrets.X_API_KEY }}
+          x_api_token: ${{ secrets.X_API_TOKEN }}
+          x_cliente_id: ${{ secrets.X_CLIENTE_ID }}
+          YAMPI_ALIAS: ${{ secrets.YAMPI_ALIAS }}
+          YAMPI_USER_TOKEN: ${{ secrets.YAMPI_USER_TOKEN }}
+          YAMPI_SECRET_KEY: ${{ secrets.YAMPI_SECRET_KEY }}

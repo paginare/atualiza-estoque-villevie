@@ -1,0 +1,7 @@
+node_modules/
+.env
+logs/
+.DS_Store
+
+# Collection do Postman com credenciais/headers — nao vai para o repo publico
+CollectionApiYampiCredenciais*.json

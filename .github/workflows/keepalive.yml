@@ -1,0 +1,29 @@
+name: Keepalive
+
+# Em repositorio publico, o GitHub desativa workflows agendados apos 60 dias sem
+# atividade no repositorio -- e execucoes de workflow NAO contam como atividade,
+# so commits. Sem isto, o sync pararia sozinho, em silencio.
+# Este job faz um commit vazio todo dia 1, zerando o contador.
+
+on:
+  schedule:
+    - cron: '0 5 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Commit vazio
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit --allow-empty -m 'chore: keepalive (mantem o cron do sync ativo)'
+          git push
