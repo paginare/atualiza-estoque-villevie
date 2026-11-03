@@ -386,6 +386,14 @@ async function sincronizar() {
           const criado = await criarProduto(novoProduto);
           produtosCriados++;
           skusCriados = criado?.skus?.data || [];
+          // A Yampi nem sempre devolve os SKUs na criacao; sem eles o estoque
+          // nao era gravado ate a rodada seguinte. Busca os SKUs do produto.
+          if (skusCriados.length === 0 && criado?.id) {
+            const { data: det } = await api.get(`/catalog/products/${criado.id}`, {
+              params: { include: 'skus' },
+            });
+            skusCriados = (det.data || det)?.skus?.data || [];
+          }
 
           // Registra o produto recem-criado no mapa de nomes para que grupos
           // seguintes com o MESMO nome (ex.: multiplos "CORSET BRASIL" no Sellbie)
